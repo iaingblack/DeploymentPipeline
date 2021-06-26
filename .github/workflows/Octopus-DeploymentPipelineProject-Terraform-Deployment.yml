@@ -24,15 +24,11 @@ jobs:
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v2
-
-            - name: ls
-              run: |
-                  ls
                   
             - name: Terraform Deploy
               run: |
                   export TF_VAR_octopus_api_key="${{ secrets.Octopus_Cloud_API_Key }}"
-                  cd DeploymentPipeline/OctopusTerraform/DeploymentPipelineProject/
+                  cd OctopusTerraform/DeploymentPipeline/OctopusTerraform/DeploymentPipelineProject/
                   terraform init
                   terraform plan
                   terraform apply -auto-approve
