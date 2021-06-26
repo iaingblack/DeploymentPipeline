@@ -26,7 +26,6 @@ jobs:
         id: time
         uses: nanzm/get-time-action@v1.1
         with:
-          timeZone: 8
           format: 'YYYY-MM-DD'
       - name: Usage
         env:
@@ -62,5 +61,5 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.time.outputs.time }}
+          tags: ${{ steps.meta.outputs.tags }}, ${{ env.REGISTRY }}/deploymentpipeline-deployer:${{ steps.time.outputs.time }}
           labels: ${{ steps.meta.outputs.labels }}
