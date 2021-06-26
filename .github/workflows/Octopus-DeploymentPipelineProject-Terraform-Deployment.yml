@@ -25,20 +25,14 @@ jobs:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v2
 
-#             # Login against a Docker registry except on PR
-#             # https://github.com/docker/login-action
-#             - name: Log into registry ${{ env.REGISTRY }}
-#               if: github.event_name != 'pull_request'
-#               uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
-#               with:
-#                 registry: ${{ env.REGISTRY }}
-#                 username: ${{ github.actor }}
-#                 password: ${{ secrets.PAT }}
-
+            - name: ls
+              run: |
+                  ls
+                  
             - name: Terraform Deploy
               run: |
                   export TF_VAR_octopus_api_key="${{ secrets.Octopus_Cloud_API_Key }}"
-                  cd DeploymentPipeline//OctopusTerraform/DeploymentPipelineProject/
+                  cd DeploymentPipeline/OctopusTerraform/DeploymentPipelineProject/
                   terraform init
                   terraform plan
                   terraform apply -auto-approve
