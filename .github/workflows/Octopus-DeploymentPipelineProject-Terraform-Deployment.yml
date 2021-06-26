@@ -18,7 +18,7 @@ jobs:
             image: ghcr.io/iaingblack/deploymentpipeline-deployer:2021-06-26
             credentials:
               username: ${{ github.actor }}
-              password: {{ secrets.PAT }}
+              password: ${{ secrets.PAT }}
 
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
