@@ -12,25 +12,28 @@ jobs:
     # This workflow contains a single job called "build"
     build:
         # The type of runner that the job will run on
-        # IAIN: Not sure how to login to get this container pulled as it is in a private registry...
+        # https://github.blog/changelog/2020-09-24-github-actions-private-registry-support-for-job-and-service-containers/
         runs-on: ubuntu-latest
         container:
             image: ghcr.io/iaingblack/deploymentpipeline-deployer:2021-06-26
+            credentials:
+              username: ${{ github.actor }}
+              password: {{ secrets.PAT }}
 
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v2
 
-            # Login against a Docker registry except on PR
-            # https://github.com/docker/login-action
-            - name: Log into registry ${{ env.REGISTRY }}
-              if: github.event_name != 'pull_request'
-              uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
-              with:
-                registry: ${{ env.REGISTRY }}
-                username: ${{ github.actor }}
-                password: ${{ secrets.PAT }}
+#             # Login against a Docker registry except on PR
+#             # https://github.com/docker/login-action
+#             - name: Log into registry ${{ env.REGISTRY }}
+#               if: github.event_name != 'pull_request'
+#               uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+#               with:
+#                 registry: ${{ env.REGISTRY }}
+#                 username: ${{ github.actor }}
+#                 password: ${{ secrets.PAT }}
 
             - name: Terraform Deploy
               run: |
