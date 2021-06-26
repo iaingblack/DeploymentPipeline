@@ -28,7 +28,7 @@ jobs:
             - name: Terraform Deploy
               run: |
                   export TF_VAR_octopus_api_key="${{ secrets.Octopus_Cloud_API_Key }}"
-                  cd OctopusTerraform/DeploymentPipeline/OctopusTerraform/DeploymentPipelineProject/
+                  cd OctopusTerraform/DeploymentPipelineProject/
                   terraform init
                   terraform plan
                   terraform apply -auto-approve
