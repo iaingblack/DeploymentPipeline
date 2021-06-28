@@ -19,7 +19,7 @@ provider "octopusdeploy" {
 
 resource "octopusdeploy_project_group" "DeploymentPipelineProjectGroup" {
   name        = "Deployment Pipeline Group"
-  description = "My Deployment Pipeline Project Group"
+  description = "My Deployment Pipeline Project Group2"
 }
 
 resource "octopusdeploy_lifecycle" "DeploymentPipelineLifecycle" {
@@ -35,7 +35,7 @@ resource "octopusdeploy_lifecycle" "DeploymentPipelineLifecycle" {
 
 resource "octopusdeploy_project" "DeploymentPipelineProject" {
   name             = "DeploymentPipelineProject"
-  description      = "DeploymentPipelineProject project"
+  description      = "DeploymentPipelineProject project2"
   lifecycle_id     = octopusdeploy_lifecycle.DeploymentPipelineLifecycle.id
   project_group_id = octopusdeploy_project_group.DeploymentPipelineProjectGroup.id
 
