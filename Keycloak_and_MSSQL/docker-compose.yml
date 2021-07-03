@@ -3,21 +3,27 @@ version: "3.2"
 services:
     keycloak:
         image: jboss/keycloak:10.0.2
+        networks:
+            - gateway
         ports:
             - "8080:8080"
         environment:
             - KEYCLOAK_USER=admin
             - KEYCLOAK_PASSWORD=admin123
             - DB_VENDOR=mssql
+            - DB_USER=sa
             - DB_PASSWORD=Password123!
-            - DB_ADDR=127.0.0.1
+            - DB_ADDR=mssql
             - DB_DATABASE=Keycloak
-
     mssql:
         image: mssql-keycloak
+        networks:
+            - gateway
         ports:
             - "1433:1433"
         #entrypoint: ./setup-keycloak-db-entrypoint.sh
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=Password123!
+networks:
+    gateway: {}
