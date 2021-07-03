@@ -3,6 +3,8 @@ version: "3.2"
 services:
     keycloak:
         image: jboss/keycloak:10.0.2
+        depends_on:
+            - "mssql"
         networks:
             - gateway
         ports:

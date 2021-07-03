@@ -1,1 +1,1 @@
-docker-compose -f "docker-compose.yml" stop 
+docker-compose -f "docker-compose.yml" down 2>&1 | %{ "$_" }
