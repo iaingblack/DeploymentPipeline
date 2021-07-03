@@ -1,0 +1,1 @@
+/opt/mssql/bin/sqlservr & /usr/src/app/setup-keycloak-db.sh & while true; do sleep 9999; done
