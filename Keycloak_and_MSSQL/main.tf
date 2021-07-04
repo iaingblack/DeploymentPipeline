@@ -7,6 +7,15 @@ terraform {
   }
 }
 
+
+locals {
+  users = csvdecode(file("./keycloak_users.csv"))
+}
+
+output "csv_users" {
+  value = local.users
+}
+
 provider "keycloak" {
     client_id     = "admin-cli"
     username      = "admin"
@@ -19,22 +28,25 @@ resource "keycloak_realm" "test-realm" {
   enabled = true
 }
 
-resource "keycloak_user" "user_with_initial_password" {
-  realm_id   = keycloak_realm.test-realm.id
-  username   = "alice"
-  enabled    = true
+resource "keycloak_user" "users_from_csv" {
+    #for_each = { for user in local.users : user.username => user }
+    for_each = { for user in local.users : user.username => user }
 
-  email      = "alice@domain.com"
-  first_name = "Alice"
-  last_name  = "Aliceberg"
+    realm_id   = keycloak_realm.test-realm.id
+    username   = each.value.username
+    enabled    = true
 
-  attributes = {
-    foo = "bar"
-    multivalue = "value1##value2"
-  }
+    email      = each.value.email
+    first_name = each.value.first_name
+    last_name  = each.value.last_name
 
-  initial_password {
-    value     = "Password1"
-    temporary = false
-  }
+    attributes = {
+        foo = "bar"
+        multivalue = "value1##value2"
+    }
+
+    initial_password {
+        value     = each.value.password
+        temporary = false
+    }
 }
