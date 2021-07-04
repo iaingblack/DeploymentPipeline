@@ -53,6 +53,18 @@ Write-Host "-----------------------------------------------------"
 terraform init
 terraform validate
 terraform plan
-terraform apply -auto-approve
 
-# invoke-webrequest http://localhost:808 -DisableKeepAlive -UseBasicParsing -ErrorAction SilentlyContinue
+Write-Host "-----------------------------------------------------"
+Write-Host "Applying Terraform Configuration"
+Write-Host "-----------------------------------------------------"
+# Parallelism has to be 1 or else we get http 500 errors when creating multiple users from csv
+terraform apply -auto-approve -parallelism=1
+
+
+Write-Host "-----------------------------------------------------"
+Write-Host "Locust Testing (TODO)"
+Write-Host "-----------------------------------------------------"
+
+Write-Host "-----------------------------------------------------"
+Write-Host " COMPLETE"
+Write-Host "-----------------------------------------------------"
