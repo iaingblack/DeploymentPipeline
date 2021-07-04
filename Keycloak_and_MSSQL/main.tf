@@ -28,6 +28,11 @@ resource "keycloak_realm" "test-realm" {
   enabled = true
 }
 
+resource "keycloak_group" "tets-group" {
+  realm_id = keycloak_realm.test-realm.id
+  name     = "test-group"
+}
+
 resource "keycloak_user" "users_from_csv" {
     #for_each = { for user in local.users : user.username => user }
     for_each = { for user in local.users : user.username => user }
@@ -42,7 +47,6 @@ resource "keycloak_user" "users_from_csv" {
 
     attributes = {
         foo = "bar"
-        multivalue = "value1##value2"
     }
 
     initial_password {
